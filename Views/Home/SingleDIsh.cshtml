@@ -1,0 +1,16 @@
+@model Dish;
+<div>
+    <h1>@Model.Name</h1>
+    <h2>@Model.Chef</h2>
+
+    <p>@Model.Description</p>
+
+    <ul>
+        <li>@Model.Calories</li>
+        <li>@Model.Tastiness</li>
+    </ul>
+    <div class="justify-content-between">
+        <a href="/dish/@Model.DishId/delete"class="btn btn-danger">Delete</a>
+        <a href="/dish/@Model.DishId/edit"class="btn btn-info">Edit</a>
+    </div>
+</div>
