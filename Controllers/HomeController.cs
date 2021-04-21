@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CRUDelicious.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRUDelicious.Controllers
 {
@@ -22,17 +23,40 @@ namespace CRUDelicious.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
-            ViewBag.AllDishes = _context.Dishes.ToList();
-    
+            ViewBag.AllChefs = _context.Chefs
+                .Include(chef => chef.ChefDishes)
+                .ToList();
             return View();
         }
-
+        [HttpGet("dishes")]
+        public IActionResult AllDishes()
+        {
+            ViewBag.AllDishes = _context.Dishes.ToList();
+            ViewBag.AllChefs = _context.Chefs.ToList();
+            return View();
+        }
         [HttpGet("NewDish")]
         public IActionResult NewDish()
         {
+            ViewBag.AllChefs = _context.Chefs.ToList();
             return View();
         }
-
+        [HttpGet("NewChef")]
+        public IActionResult NewChef()
+        {
+            return View();
+        }
+        [HttpPost("AddChef")]
+        public IActionResult AddChef(Chef newChef)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Chefs.Add(newChef);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("NewChef");
+        }
         [HttpPost("AddDish")]
         public IActionResult AddDish(Dish newDish)
         {
@@ -41,18 +65,18 @@ namespace CRUDelicious.Controllers
                 _context.Dishes.Add(newDish);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
-            } 
+            }
             return View("NewDish");
         }
         [HttpGet("dish/{DishId}")]
         public IActionResult SingleDish(int dishId)
         {
-            Dish ThisDish = _context.Dishes.FirstOrDefault(dish => dish.DishId == dishId); 
+            Dish ThisDish = _context.Dishes.FirstOrDefault(dish => dish.DishId == dishId);
             Console.WriteLine(ThisDish.Name);
             return View(ThisDish);
         }
         [HttpGet("dish/{dishId}/delete")]
-        public IActionResult DeleteDish (int dishId)
+        public IActionResult DeleteDish(int dishId)
         {
             Dish deleteDish = _context.Dishes.FirstOrDefault(dish => dish.DishId == dishId);
             _context.Dishes.Remove(deleteDish);
@@ -76,7 +100,6 @@ namespace CRUDelicious.Controllers
             Console.WriteLine(newEdit);
             Dish EditDish = _context.Dishes.FirstOrDefault(dish => dish.DishId == newEdit.DishId);
             EditDish.Name = newEdit.Name;
-            EditDish.Chef = newEdit.Chef;
             EditDish.Tastiness = newEdit.Tastiness;
             EditDish.Calories = newEdit.Calories;
             EditDish.Description = newEdit.Description;

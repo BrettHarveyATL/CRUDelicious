@@ -1,15 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Dishes";
+    ViewData["Title"] = "Chefs";
 }
-@model Dish;
+@model Chef;
 <div class="text-center">
-    <h1 class="display-4">Welcome to CRUDelicious</h1>
-    <p>Check out some recent dishes! <a href="/NewDish">Add a Dish</a>.</p>
-    <br />
-    <ul class="list-group">
-        @foreach (var dish in ViewBag.AllDishes)
-        {
-            <li class="list-group-item"><a href="/dish/@dish.DishId">@dish.Name</a> by @dish.Chef</li>
-        }
-    </ul>
+    <h1 class="display-4"><a href="/">Chefs</a> | <a href="/dishes">Dishes</a></h1> <a href="/NewChef">Add a Chef</a>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th># of Dishes</th>
+            </tr>
+            @foreach (Chef chef in ViewBag.AllChefs)
+            {
+                <tr>
+                    <td>@chef.FirstName @chef.LastName</td>
+                    @{int age = (int)(DateTime.Now - chef.BirthDate).TotalDays/365;}
+                    <td>@age</td>
+                    <td>@chef.ChefDishes.Count</td>
+                </tr>
+            }
+        </table>
 </div>

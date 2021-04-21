@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Dishes";
+}
+@model Dish;
+<div class="text-center">
+    <h1 class="display-4"><a href="/">Chefs</a> | <a href="/dishes">Dishes</a></h1> <a href="/NewDish">Add a Dish</a>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Creator</th>
+                <th>Tastieness</th>
+                <th>Calories</th>
+
+            </tr>
+            @foreach (Dish dish in ViewBag.AllDishes)
+            {
+                <tr>
+                    <td><a href="/dish/@dish.DishId">@dish.Name</a></td>
+                    <td>@dish.Creator.FirstName @dish.Creator.LastName</td>
+                    <td>@dish.Tastiness</td>
+                    <td>@dish.Calories</td>
+                </tr>
+            }
+        </table>
+</div>

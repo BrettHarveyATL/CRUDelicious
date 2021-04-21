@@ -124,3 +124,5 @@ C:\Users\breth\Desktop\cSharp\ORMs\CRUDelicious\obj\Debug\netcoreapp3.1\staticwe
 C:\Users\breth\Desktop\cSharp\ORMs\CRUDelicious\obj\Debug\netcoreapp3.1\CRUDelicious.dll
 C:\Users\breth\Desktop\cSharp\ORMs\CRUDelicious\obj\Debug\netcoreapp3.1\CRUDelicious.pdb
 C:\Users\breth\Desktop\cSharp\ORMs\CRUDelicious\obj\Debug\netcoreapp3.1\CRUDelicious.genruntimeconfig.cache
+C:\Users\breth\Desktop\cSharp\ORMs\CRUDelicious\obj\Debug\netcoreapp3.1\Razor\Views\Home\AllDishes.cshtml.g.cs
+C:\Users\breth\Desktop\cSharp\ORMs\CRUDelicious\obj\Debug\netcoreapp3.1\Razor\Views\Home\NewChef.cshtml.g.cs
